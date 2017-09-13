@@ -1,5 +1,6 @@
 package com.trvl.domain.api.airbookings.airbookings.domains;
 
+
 import javax.persistence.*;
 
 /**
