@@ -1,7 +1,11 @@
 package com.trvl.domain.api.airbookings.airbookings.domains;
 
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,13 +18,21 @@ public class BookingMaster {
     @Column (name = "trackex_trip_id")
     int trackexTripId;
 
-    /*@OneToMany
-    @JoinTable
-    Set<BookingPassengerMaster> passengers;
+    @JoinColumn(name = "trackex_trip_id")
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    List<BookingPassengerMaster> passengers;
 
-    @OneToMany
-    @JoinTable
-    Set<BookingSegmentMaster> segments;*/
+    @JoinColumn(name = "trackex_trip_id")
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    List<BookingSegmentMaster> segments;
 
     @Column(name = "servicer_booking_id")
     String servicerBookingId;
@@ -57,21 +69,21 @@ public class BookingMaster {
         this.trackexTripId = trackexTripId;
     }
 
-   /* public Set<BookingPassengerMaster> getPassengers() {
+    public List<BookingPassengerMaster> getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(Set<BookingPassengerMaster> passengers) {
+    public void setPassengers(List<BookingPassengerMaster> passengers) {
         this.passengers = passengers;
     }
 
-    public Set<BookingSegmentMaster> getSegments() {
+    public List<BookingSegmentMaster> getSegments() {
         return segments;
     }
 
-    public void setSegments(Set<BookingSegmentMaster> segments) {
+    public void setSegments(List<BookingSegmentMaster> segments) {
         this.segments = segments;
-    }*/
+    }
 
     public String getServicerBookingId() {
         return servicerBookingId;

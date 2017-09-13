@@ -13,9 +13,9 @@ public class BookingPassengerMaster {
     @Column(name = "trackex_trip_id")
     int trackexTripId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "trackex_trip_id")
-    BookingMaster bookingMaster;
+    /*@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "trackex_trip_id", updatable = false, insertable = false)
+    BookingMaster bookingMaster;*/
 
     @Column(name = "pnr")
     String pnr;
@@ -29,7 +29,7 @@ public class BookingPassengerMaster {
     @Column(name = "lastname")
     String lastName;
 
-    @Column(name = "paxType")
+    @Column(name = "pax_type")
     String paxType;
 
     @Column(name = "dob")
@@ -91,13 +91,13 @@ public class BookingPassengerMaster {
         this.trackexTripId = trackexTripId;
     }
 
-    public BookingMaster getBookingMaster() {
+    /*public BookingMaster getBookingMaster() {
         return bookingMaster;
     }
 
     public void setBookingMaster(BookingMaster bookingMaster) {
         this.bookingMaster = bookingMaster;
-    }
+    }*/
 
     public String getPnr() {
         return pnr;
