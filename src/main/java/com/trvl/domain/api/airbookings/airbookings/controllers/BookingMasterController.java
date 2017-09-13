@@ -31,10 +31,14 @@ public class BookingMasterController {
     }*/
 
     @RequestMapping(value = "/getBookingDetails", method = RequestMethod.GET)
-    ResponseEntity<BookingMaster> retrieveBooking(@RequestParam(value="trackExTripId", required=true) String trackExTripId,
+    ResponseEntity retrieveBooking(@RequestParam(value="trackExTripId", required=true) String trackExTripId,
                                                   @RequestParam(value="email", required=true) String leadPaxEmail)
     {
         BookingMaster bookingMaster = bookService.retrieveBooking(trackExTripId,leadPaxEmail);
+        if (bookingMaster==null) {
+            return new ResponseEntity("Not Found", HttpStatus.NOT_FOUND);
+        }
+        else
         return new ResponseEntity<BookingMaster>(bookingMaster, HttpStatus.OK);
     }
 

@@ -2,9 +2,11 @@ package com.trvl.domain.api.airbookings.airbookings.services;
 
 import com.trvl.domain.api.airbookings.airbookings.domains.BookingMaster;
 import com.trvl.domain.api.airbookings.airbookings.domains.BookingPassengerMaster;
+import com.trvl.domain.api.airbookings.airbookings.domains.BookingSegmentMaster;
 import com.trvl.domain.api.airbookings.airbookings.repositories.BookingMasterRepository;
 import com.trvl.domain.api.airbookings.airbookings.rowmappers.BookingMasterRowMapper;
 import com.trvl.domain.api.airbookings.airbookings.rowmappers.BookingPassengerMasterRowMapper;
+import com.trvl.domain.api.airbookings.airbookings.rowmappers.BookingSegmentMasterRowMapper;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -40,13 +42,23 @@ public class BookService {
     {
         JdbcTemplate jdbcTemplate=new JdbcTemplate();
         jdbcTemplate.setDataSource(basicDataSource);
-        String selectQuery =  "SELECT * FROM TrackEx.booking_master WHERE trackex_trip_id="+1010101+" AND lead_pax_email='"+leadPaxEmail+"'";
-        BookingMaster bookingMaster = jdbcTemplate.queryForObject(selectQuery, new BookingMasterRowMapper());
+        String bookingMasterSelectQuery =  "SELECT * FROM TrackEx.booking_master WHERE trackex_trip_id="+trackexTripId+" AND lead_pax_email='"+leadPaxEmail+"'";
+        BookingMaster bookingMaster=null;
+        try {
+            bookingMaster = jdbcTemplate.queryForObject(bookingMasterSelectQuery, new BookingMasterRowMapper());
+        }catch (org.springframework.dao.EmptyResultDataAccessException e)
+        {
+            return bookingMaster;
+        }
+        String bookingPassengerMasterSelectQuery =  "SELECT * FROM TrackEx.booking_passenger_master WHERE trackex_trip_id="+trackexTripId;
+        List<BookingPassengerMaster> bookingPassengerMasters = jdbcTemplate.query(bookingPassengerMasterSelectQuery,new BookingPassengerMasterRowMapper());
 
-        selectQuery =  "SELECT * FROM TrackEx.booking_passenger_master WHERE trackex_trip_id="+1010101;
-        List<BookingPassengerMaster> bookingPassengerMasters = jdbcTemplate.query(selectQuery,new BookingPassengerMasterRowMapper());
+
+        String bookingSegmentMasterSelectQuery =  "SELECT * FROM TrackEx.booking_segment_master WHERE trackex_trip_id="+trackexTripId;
+        List<BookingSegmentMaster> bookingSegmentMasters = jdbcTemplate.query(bookingSegmentMasterSelectQuery,new BookingSegmentMasterRowMapper());
 
         bookingMaster.setPassengers(bookingPassengerMasters);
+        bookingMaster.setSegments(bookingSegmentMasters);
 
         return bookingMaster;
     }
