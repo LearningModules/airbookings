@@ -2,6 +2,7 @@ package com.trvl.domain.api.airbookings.airbookings.domains;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by reji on 13/09/17.
@@ -13,9 +14,13 @@ public class BookingMaster {
     @Column (name = "trackex_trip_id")
     int trackexTripId;
 
-   /* @OneToMany
-    @JoinColumn(name = "categoryid")
-    List<BookCategory>  bookCategory;*/
+    /*@OneToMany
+    @JoinTable
+    Set<BookingPassengerMaster> passengers;
+
+    @OneToMany
+    @JoinTable
+    Set<BookingSegmentMaster> segments;*/
 
     @Column(name = "servicer_booking_id")
     String servicerBookingId;
@@ -44,4 +49,99 @@ public class BookingMaster {
     @Column(name = "total_itinerary_cost")
     String totalItinerearyCost;
 
+    public int getTrackexTripId() {
+        return trackexTripId;
+    }
+
+    public void setTrackexTripId(int trackexTripId) {
+        this.trackexTripId = trackexTripId;
+    }
+
+   /* public Set<BookingPassengerMaster> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(Set<BookingPassengerMaster> passengers) {
+        this.passengers = passengers;
+    }
+
+    public Set<BookingSegmentMaster> getSegments() {
+        return segments;
+    }
+
+    public void setSegments(Set<BookingSegmentMaster> segments) {
+        this.segments = segments;
+    }*/
+
+    public String getServicerBookingId() {
+        return servicerBookingId;
+    }
+
+    public void setServicerBookingId(String servicerBookingId) {
+        this.servicerBookingId = servicerBookingId;
+    }
+
+    public String getServicerCode() {
+        return servicerCode;
+    }
+
+    public void setServicerCode(String servicerCode) {
+        this.servicerCode = servicerCode;
+    }
+
+    public String getPnr() {
+        return pnr;
+    }
+
+    public void setPnr(String pnr) {
+        this.pnr = pnr;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public String getInvoiceCreationDate() {
+        return invoiceCreationDate;
+    }
+
+    public void setInvoiceCreationDate(String invoiceCreationDate) {
+        this.invoiceCreationDate = invoiceCreationDate;
+    }
+
+    public String getLeadPaxEmail() {
+        return leadPaxEmail;
+    }
+
+    public void setLeadPaxEmail(String leadPaxEmail) {
+        this.leadPaxEmail = leadPaxEmail;
+    }
+
+    public String getLeadPaxPhone() {
+        return leadPaxPhone;
+    }
+
+    public void setLeadPaxPhone(String leadPaxPhone) {
+        this.leadPaxPhone = leadPaxPhone;
+    }
+
+    public String getTotalItinerearyCost() {
+        return totalItinerearyCost;
+    }
+
+    public void setTotalItinerearyCost(String totalItinerearyCost) {
+        this.totalItinerearyCost = totalItinerearyCost;
+    }
 }
