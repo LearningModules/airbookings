@@ -22,11 +22,19 @@ public class BookingMasterController {
     @Autowired
     BookService bookService;
 
-    @RequestMapping(value = "/getBookingDetails", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/getBookingDetails", method = RequestMethod.GET)
     ResponseEntity<BookingMaster> retrieveBooking(@RequestParam(value="trackExTripId", required=true) String trackExTripId,
                                                   @RequestParam(value="email", required=true) String leadPaxEmail)
     {
         BookingMaster bookingMaster = bookService.retrieveBookingMaster(trackExTripId,leadPaxEmail);
+        return new ResponseEntity<BookingMaster>(bookingMaster, HttpStatus.OK);
+    }*/
+
+    @RequestMapping(value = "/getBookingDetails", method = RequestMethod.GET)
+    ResponseEntity<BookingMaster> retrieveBooking(@RequestParam(value="trackExTripId", required=true) String trackExTripId,
+                                                  @RequestParam(value="email", required=true) String leadPaxEmail)
+    {
+        BookingMaster bookingMaster = bookService.retrieveBooking(trackExTripId,leadPaxEmail);
         return new ResponseEntity<BookingMaster>(bookingMaster, HttpStatus.OK);
     }
 

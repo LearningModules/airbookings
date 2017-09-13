@@ -13,8 +13,8 @@ public class BookingPassengerMaster {
     @Column(name = "trackex_trip_id")
     int trackexTripId;
 
-    /*@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "trackex_trip_id", updatable = false, insertable = false)
+    /*@ManyToOne
+    @JoinColumn(name="trackex_trip_id", insertable = false, updatable = false)
     BookingMaster bookingMaster;*/
 
     @Column(name = "pnr")

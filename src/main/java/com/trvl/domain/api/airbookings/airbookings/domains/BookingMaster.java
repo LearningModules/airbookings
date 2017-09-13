@@ -18,22 +18,6 @@ public class BookingMaster {
     @Column (name = "trackex_trip_id")
     int trackexTripId;
 
-    @JoinColumn(name = "trackex_trip_id")
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    List<BookingPassengerMaster> passengers;
-
-    @JoinColumn(name = "trackex_trip_id")
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    List<BookingSegmentMaster> segments;
-
     @Column(name = "servicer_booking_id")
     String servicerBookingId;
 
@@ -60,6 +44,29 @@ public class BookingMaster {
 
     @Column(name = "total_itinerary_cost")
     String totalItinerearyCost;
+
+    @JoinColumn(name = "trackex_trip_id")
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Fetch(value = FetchMode.SUBSELECT)
+
+
+
+    List<BookingPassengerMaster> passengers;
+
+    @JoinColumn(name = "trackex_trip_id")
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Fetch(value = FetchMode.SUBSELECT)
+    List<BookingSegmentMaster> segments;
+
+
 
     public int getTrackexTripId() {
         return trackexTripId;
