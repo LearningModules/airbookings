@@ -36,7 +36,7 @@ public class BookingMasterController {
     {
         BookingMaster bookingMaster = bookService.retrieveBooking(trackExTripId,leadPaxEmail);
         if (bookingMaster==null) {
-            return new ResponseEntity("Not Found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("{\"Error\":\"Not Records Found\"}", HttpStatus.NOT_FOUND);
         }
         else
         return new ResponseEntity<BookingMaster>(bookingMaster, HttpStatus.OK);
@@ -46,6 +46,11 @@ public class BookingMasterController {
     ResponseEntity<BookingMaster> retrieveAllBookings()
     {
         List<BookingMaster> bookings = bookService.getAllBookings();
+        if(bookings==null)
+        {
+            return new ResponseEntity("{\"Error\":\"Not Records Found\"}", HttpStatus.NOT_FOUND);
+        }
+        else
         return new ResponseEntity(bookings, HttpStatus.OK);
     }
 

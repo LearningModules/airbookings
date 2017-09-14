@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,7 +36,36 @@ public class BookService {
 
     public List<BookingMaster> getAllBookings()
     {
-        return bookingMasterRepository.findAll();
+        //return bookingMasterRepository.findAll(); // This is to get via Spring JPA ORM
+        int trackexTripId=0;
+        List<BookingMaster> bookingMasters  = new ArrayList<BookingMaster>();
+        List<BookingMaster> bookingMastersFinal  = new ArrayList<BookingMaster>();
+        JdbcTemplate jdbcTemplate=new JdbcTemplate();
+        jdbcTemplate.setDataSource(basicDataSource);
+        String bookingMasterSelectAllQuery =  "SELECT * FROM TrackEx.booking_master";
+        try {
+            bookingMasters = jdbcTemplate.query(bookingMasterSelectAllQuery, new BookingMasterRowMapper());
+        }catch (org.springframework.dao.EmptyResultDataAccessException e)
+        {
+            return bookingMasters;
+        }
+        String bookingPassengerMasterSelectQuery =  null;
+        String bookingSegmentMasterSelectQuery = null;
+
+        for (BookingMaster booking : bookingMasters){
+            trackexTripId = booking.getTrackexTripId();
+            bookingPassengerMasterSelectQuery =  "SELECT * FROM TrackEx.booking_passenger_master WHERE trackex_trip_id="+trackexTripId;
+            bookingSegmentMasterSelectQuery =  "SELECT * FROM TrackEx.booking_segment_master WHERE trackex_trip_id="+trackexTripId;
+
+            List<BookingPassengerMaster> bookingPassengerMasters = jdbcTemplate.query(bookingPassengerMasterSelectQuery,new BookingPassengerMasterRowMapper());
+            List<BookingSegmentMaster> bookingSegmentMasters = jdbcTemplate.query(bookingSegmentMasterSelectQuery,new BookingSegmentMasterRowMapper());
+
+            booking.setPassengers(bookingPassengerMasters);
+            booking.setSegments(bookingSegmentMasters);
+
+            bookingMastersFinal.add(booking);
+        }
+        return  bookingMastersFinal;
     }
 
     public BookingMaster retrieveBooking(String trackexTripId, String leadPaxEmail)

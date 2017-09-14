@@ -5,6 +5,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "booking_master")
-public class BookingMaster {
+public class BookingMaster implements Serializable{
     @Id
     @Column (name = "trackex_trip_id")
     int trackexTripId;

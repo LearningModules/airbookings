@@ -1,13 +1,14 @@
 package com.trvl.domain.api.airbookings.airbookings.domains;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by reji on 13/09/17.
  */
 @Entity
 @Table(name = "booking_passenger_master")
-public class BookingPassengerMaster {
+public class BookingPassengerMaster implements Serializable{
 
     @Id
     @Column(name = "trackex_trip_id")
