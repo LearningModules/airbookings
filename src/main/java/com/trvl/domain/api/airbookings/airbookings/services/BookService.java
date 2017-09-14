@@ -42,7 +42,7 @@ public class BookService {
         List<BookingMaster> bookingMastersFinal  = new ArrayList<BookingMaster>();
         JdbcTemplate jdbcTemplate=new JdbcTemplate();
         jdbcTemplate.setDataSource(basicDataSource);
-        String bookingMasterSelectAllQuery =  "SELECT * FROM TrackEx.booking_master";
+        String bookingMasterSelectAllQuery =  "SELECT * FROM booking_master";
         try {
             bookingMasters = jdbcTemplate.query(bookingMasterSelectAllQuery, new BookingMasterRowMapper());
         }catch (org.springframework.dao.EmptyResultDataAccessException e)
@@ -54,8 +54,8 @@ public class BookService {
 
         for (BookingMaster booking : bookingMasters){
             trackexTripId = booking.getTrackexTripId();
-            bookingPassengerMasterSelectQuery =  "SELECT * FROM TrackEx.booking_passenger_master WHERE trackex_trip_id="+trackexTripId;
-            bookingSegmentMasterSelectQuery =  "SELECT * FROM TrackEx.booking_segment_master WHERE trackex_trip_id="+trackexTripId;
+            bookingPassengerMasterSelectQuery =  "SELECT * FROM booking_passenger_master WHERE trackex_trip_id="+trackexTripId;
+            bookingSegmentMasterSelectQuery =  "SELECT * FROM booking_segment_master WHERE trackex_trip_id="+trackexTripId;
 
             List<BookingPassengerMaster> bookingPassengerMasters = jdbcTemplate.query(bookingPassengerMasterSelectQuery,new BookingPassengerMasterRowMapper());
             List<BookingSegmentMaster> bookingSegmentMasters = jdbcTemplate.query(bookingSegmentMasterSelectQuery,new BookingSegmentMasterRowMapper());
@@ -72,7 +72,7 @@ public class BookService {
     {
         JdbcTemplate jdbcTemplate=new JdbcTemplate();
         jdbcTemplate.setDataSource(basicDataSource);
-        String bookingMasterSelectQuery =  "SELECT * FROM TrackEx.booking_master WHERE trackex_trip_id="+trackexTripId+" AND lead_pax_email='"+leadPaxEmail+"'";
+        String bookingMasterSelectQuery =  "SELECT * FROM booking_master WHERE trackex_trip_id="+trackexTripId+" AND lead_pax_email='"+leadPaxEmail+"'";
         BookingMaster bookingMaster=null;
         try {
             bookingMaster = jdbcTemplate.queryForObject(bookingMasterSelectQuery, new BookingMasterRowMapper());
@@ -80,11 +80,11 @@ public class BookService {
         {
             return bookingMaster;
         }
-        String bookingPassengerMasterSelectQuery =  "SELECT * FROM TrackEx.booking_passenger_master WHERE trackex_trip_id="+trackexTripId;
+        String bookingPassengerMasterSelectQuery =  "SELECT * FROM booking_passenger_master WHERE trackex_trip_id="+trackexTripId;
         List<BookingPassengerMaster> bookingPassengerMasters = jdbcTemplate.query(bookingPassengerMasterSelectQuery,new BookingPassengerMasterRowMapper());
 
 
-        String bookingSegmentMasterSelectQuery =  "SELECT * FROM TrackEx.booking_segment_master WHERE trackex_trip_id="+trackexTripId;
+        String bookingSegmentMasterSelectQuery =  "SELECT * FROM booking_segment_master WHERE trackex_trip_id="+trackexTripId;
         List<BookingSegmentMaster> bookingSegmentMasters = jdbcTemplate.query(bookingSegmentMasterSelectQuery,new BookingSegmentMasterRowMapper());
 
         bookingMaster.setPassengers(bookingPassengerMasters);
