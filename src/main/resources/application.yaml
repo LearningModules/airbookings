@@ -1,33 +1,44 @@
-#Connectivity Configurations for ORM
-#spring.datasource.url: jdbc:mysql://localhost:3306/TrackEx
-#spring.datasource.username: dev3
-#spring.datasource.password: ClientPass3@23
-#spring.datasource.driverClassName: com.mysql.jdbc.Driver
-#spring.jpa.show-sql: true
-#spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+server:
+    port: 8888
 
+#Connectivity Configurations for ORM
+security.basic.enabled: false
+management.security.enabled: false
 spring.datasource.url: jdbc:mysql://10.1.7.55:3306/trackexds_b2e
-spring.datasource.username: ***
-spring.datasource.password: ***
+spring.datasource.username: trackex
+spring.datasource.password: trackex
 spring.datasource.driverClassName: com.mysql.jdbc.Driver
 spring.jpa.show-sql: true
 spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
 
-#Disabling basic auth on services
-security.basic.enabled: false
-management.security.enabled: false
-
 #Connectivity Configurations for jdbcTemplate
-#msjdbcSqlDriverClass: com.mysql.jdbc.Driver
-#msjdbcSqlConnectionString: jdbc:mysql://localhost:3306/TrackEx
-#msjdbcSqlUserName: dev3
-#msjdbcSqlPassword: ClientPass3@23
-#msjdbcConnectionPoolInitialSize: 15
-#msjdbcConnectionPoolMaxActive: 20
-
 msjdbcSqlDriverClass: com.mysql.jdbc.Driver
 msjdbcSqlConnectionString: jdbc:mysql://10.1.7.55:3306/trackexds_b2e
-msjdbcSqlUserName: ***
-msjdbcSqlPassword: ***
+msjdbcSqlUserName: trackex
+msjdbcSqlPassword: trackex
 msjdbcConnectionPoolInitialSize: 15
 msjdbcConnectionPoolMaxActive: 20
+
+
+---
+
+spring:
+    profiles: development
+
+#Connectivity Configurations for ORM
+spring.datasource.url: jdbc:mysql://localhost:3306/TrackEx
+spring.datasource.username: dev3
+spring.datasource.password: ClientPass3@23
+spring.datasource.driverClassName: com.mysql.jdbc.Driver
+spring.jpa.show-sql: true
+spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+
+#Connectivity Configurations for jdbcTemplate
+msjdbcSqlDriverClass: com.mysql.jdbc.Driver
+msjdbcSqlConnectionString: jdbc:mysql://localhost:3306/TrackEx
+msjdbcSqlUserName: dev3
+msjdbcSqlPassword: ClientPass3@23
+msjdbcConnectionPoolInitialSize: 15
+msjdbcConnectionPoolMaxActive: 20
+
+---
